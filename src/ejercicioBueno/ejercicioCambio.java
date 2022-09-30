@@ -4,37 +4,55 @@
  */
 package ejercicioBueno;
 
+import java.util.Scanner;
+
 /**
  *
  * @author alejandro
  */
 public class ejercicioCambio {
-
+    public static Scanner entrada= new Scanner(System.in);
+    public static int filas;
+    public static int columnas;
+    public static int codigoAccion;
+    public static int[][] tabla= new int[3][3];
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        muestraMenu();
+        codigoAccion=entrada.nextInt();
+        cosechaInformacion(codigoAccion);
         
-        int[][] tabla= new int[3][3];
         
-        llenaTabla(tabla);
+        
+        
         muestraTabla(tabla);
         ordenaTabla(tabla);
     }
     
     public static void llenaTabla(int[][] tabla){
         for(int i=0; i<tabla.length; i++){
-            for(int j=0; j<tabla.length; j++){
+            for(int j=0; j<tabla[i].length; j++){
                 tabla[i][j]=(int)(Math.random()*10+1);
-                System.out.println(tabla[i][j]);
+                //System.out.println(tabla[i][j]);
+            }
+        }
+    }
+    
+    public static void llenaTablaAMano(int[][] tabla){
+        for(int i=0; i<tabla.length; i++){
+            for(int j=0; j<tabla[i].length; j++){
+                tabla[i][j]=entrada.nextInt();
+                //System.out.println(tabla[i][j]);
             }
         }
     }
     
     public static void muestraTabla(int[][] tabla){
         for(int i=0; i<tabla.length; i++){
-            for(int j=0; j<tabla.length; j++){
+            for(int j=0; j<tabla[i].length; j++){
                 System.out.print("|"+tabla[i][j]);
             }
             System.out.println("\n");
@@ -48,10 +66,10 @@ public class ejercicioCambio {
                 
         for(int i=0; i<tabla.length; i++){
             for(int j=0; j<tabla[i].length; j++){
-                System.out.println("posicion de tabla: "+((tabla.length*i+j)+1));
+                //System.out.println("posicion de tabla: "+((tabla.length*i+j)+1));
                 posicion[0]=i;
                 posicion[1]=j;
-                System.out.println("intercambio el "+ tabla[i][j]+ " indice: "+posicion[0]+posicion[1]);
+                //System.out.println("intercambio el "+ tabla[i][j]+ " indice: "+posicion[0]+posicion[1]);
                 indice=localizaPosicion(tabla[i][j], posicion, tabla);
                 intercambiaNumeros(indice, posicion, tabla);  
             }
@@ -106,7 +124,7 @@ public class ejercicioCambio {
                 
             
         }
-        System.out.println("con el "+tabla[indice[0]][indice[1]]+" indice: "+indice[0]+indice[1]);
+        //System.out.println("con el "+tabla[indice[0]][indice[1]]+" indice: "+indice[0]+indice[1]);
         return indice;
     }
     
@@ -120,57 +138,13 @@ public class ejercicioCambio {
         
     }
     
-    public static void colocaYDesplaza(int[]indice,int valor, int[][] tabla){
-        //no necesito auxiliar para almacenar el último valor porque puedo darle la posición del valor a ordenar pero si uno para el array de ultimos
-        int contadorUltimos=0;
-        //el array de ultimos tiene las filas totales menos las que no son afectadas (menores que el indice[1]) menos uno porque el último valor no lo almacena
-        int[] ultimoFila=new int[tabla.length-indice[0]];
-        
-        //Meto en la posición del valor a ordenar el último valor para evitar que se pierda
-        tabla[indice[0]][indice[1]]=tabla[tabla.length-1][tabla[tabla.length-1].length-1];
-        System.out.println("guardo el ultimo en la posicion del indice");
-        //ordena los valores desde el final hasta la posición del indice
-        for(int i=tabla.length-1; i>=indice[0]; i--){
-            
-            if(i!=tabla.length-1){
-                ultimoFila[contadorUltimos]=tabla[i][tabla[i].length-1];
-                contadorUltimos++;
-                System.out.println("guardo un valor en el array de ultimos");
-            }
-            if(i==indice[0]){
-                for(int j=tabla[i].length-1; j>indice[1]; j--){
-                    tabla[i][j]=tabla[i][j-1];
-                    System.out.println("desplazo hasta el indice");
-                }
-            }else{
-                //los mueve todos
-                for(int j=tabla[i].length-1; j>0; j--){
-                    tabla[i][j]=tabla[i][j-1];
-                    System.out.println("desplazo hasta el final de la fila");
-
-                }
-            }
-            
-            
-        }
-        //recoloco el valor en la posición del indice
-        tabla[indice[0]][indice[1]]=valor;
-        System.out.println("recoloco el valor en la posicion del indice");
-        
-        //ahora recoloco los perdidos sabiendo que están en orden inverso sacandolos del array de ultimos
-            System.out.println("recoloco los ultimos");
-        for(int k=0; k<ultimoFila.length-1; k++){
-            System.out.println(ultimoFila[k]);
-            tabla[0][tabla.length-1-(1+k)]=ultimoFila[k];  
-        }
-        
-    }
+    
     
     public static void colocaPrimero(int[][] tabla){
         int auxiliar= tabla[0][0];
         
         for(int i=0; i<tabla.length; i++){
-            for(int j=0; j<tabla.length; j++){
+            for(int j=0; j<tabla[i].length; j++){
                 if(tabla[i][j]<auxiliar){
                     auxiliar=tabla[i][j];
                     tabla[i][j]=tabla[0][0];
@@ -182,6 +156,54 @@ public class ejercicioCambio {
             }
             
             
+        }
+        
+    }
+    
+    public static void muestraMenu(){
+        System.out.println("Decida la opción que desea: ");
+        System.out.println("-----------------------");
+        System.out.println("1 - valores aleatorios y tamaño fijo (3x3)");
+        System.out.println("2 - valores aleatorios y tamaño a elegir");
+        System.out.println("3 - valores y tamaño a elegir");
+        System.out.println("-----------------------");
+        
+    }
+    
+    public static void cosechaInformacion(int codigo){
+        
+        switch(codigo){
+            case 1:
+                System.out.println("De acuerdo, voy a ello");
+                llenaTabla(tabla);
+                break;
+            case 2:
+                System.out.println("Introduzca el nº de filas: ");
+                filas=entrada.nextInt();
+                System.out.println("Introduzca el nº de columnas: ");
+                columnas=entrada.nextInt();
+                
+                tabla=new int[filas][columnas];
+                llenaTabla(tabla);
+                
+                break;
+            case 3:
+                System.out.println("Introduzca el nº de filas: ");
+                filas=entrada.nextInt();
+                System.out.println("Introduzca el nº de columnas: ");
+                columnas=entrada.nextInt();
+                
+                tabla=new int[filas][columnas];
+                llenaTablaAMano(tabla);
+                
+                break;
+               
+            default:
+                System.out.println("Introduzca un código válido");
+                muestraMenu();
+                cosechaInformacion(codigo);
+                
+                
         }
         
     }

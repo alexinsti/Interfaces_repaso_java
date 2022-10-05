@@ -23,6 +23,7 @@ public class ejercicioCambio {
     public static int[][] tabla = new int[3][3];
 
     /**
+     * Ejecuta el programa principal
      * @param args the command line arguments
      * @see muestraMenu()
      * @see ordenaTabla()
@@ -51,6 +52,10 @@ public class ejercicioCambio {
         }
     }
 
+    /**
+     * Llena una tabla reccibida por parámetros con valores aleatorios
+     * @param tabla la array sobre la que trabaja
+     */
     public static void llenaTabla(int[][] tabla) {
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla[i].length; j++) {
@@ -59,6 +64,10 @@ public class ejercicioCambio {
         }
     }
 
+    /**
+     * Llena una tabla reccibida por parámetros con valores introduidos a mano
+     * @param tabla la array sobre la que trabaja
+     */
     public static void llenaTablaAMano(int[][] tabla) {
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla[i].length; j++) {
@@ -77,6 +86,10 @@ public class ejercicioCambio {
         }
     }
 
+    /**
+     * Muestra una tabla reccibida por parámetros con valores aleatorios
+     * @param tabla la array sobre la que trabaja
+     */
     public static void muestraTabla(int[][] tabla) {
 
         System.out.println("\n Resultado: ");
@@ -89,6 +102,11 @@ public class ejercicioCambio {
         }
     }
 
+    /**
+     * Ordena una tabla recorriendola e intercambiando el valor de la posición actual con el menor de los restantes en la tabla
+     * @param tabla la array sobre la que trabaja
+     * @see intercambiaNumeros()
+     */
     public static void ordenaTabla(int[][] tabla) {
         int[] indice = new int[2];
         int[] posicion = new int[2];
@@ -103,24 +121,14 @@ public class ejercicioCambio {
             }
         }
     }
-
-    public static void adelante(int[][] tabla) {
-        for (int i = 0; i < tabla.length; i++) {
-            for (int j = 0; j < tabla[i].length; j++) {
-                System.out.println(tabla[i][j]);
-            }
-        }
-    }
-
-    public static void atras(int[][] tabla) {
-        for (int i = tabla.length - 1; i >= 0; i--) {
-            for (int j = tabla[i].length - 1; j >= 0; j--) {
-                System.out.println(tabla[i][j]);
-
-            }
-        }
-    }
-
+    
+    /**
+     * Localiza el indice del menor de los valores de un array inferiores a otro valor recibido por parámetros
+     * @param tabla array sobre el que trabaja
+     * @param valor valor a comparar con el resto del array
+     * @param posicion posición del valor a comparar con el resto en la tabla recibida
+     * @return el indice del menor de los valores inferiores al recibido por parámetros en formato array
+     */
     public static int[] localizaPosicion(int valor, int[] posicion, int[][] tabla) {
         //por defecto indice vale la ultima posición
         int[] indice = new int[2];
@@ -150,13 +158,23 @@ public class ejercicioCambio {
         return indice;
     }
 
+    /**
+     * Intercambia los valores de dos posiciones de un array dado
+     * @param tabla array sobre el que trabaja
+     * @param indice indice de una de las posiciones a intercambiar
+     * @param posicion indice de otra de las posiciones a intercambiar
+     */
     public static void intercambiaNumeros(int[] indice, int[] posicion, int[][] tabla) {
         int aux = tabla[posicion[0]][posicion[1]];
         tabla[posicion[0]][posicion[1]] = tabla[indice[0]][indice[1]];
         tabla[indice[0]][indice[1]] = aux;
 
     }
-
+    
+    /**
+     * Intercambia las posiciones del primer valor y el menor de un array dado por parámetros
+     * @param tabla array sobre el que trabaja
+     */
     public static void colocaPrimero(int[][] tabla) {
         int auxiliar = tabla[0][0];
         for (int i = 0; i < tabla.length; i++) {
@@ -169,7 +187,10 @@ public class ejercicioCambio {
             }
         }
     }
-
+    
+    /**
+     * Muestra el menú de elección de opciones de usuario
+     */
     public static void muestraMenu() {
         System.out.println("Decida la opción que desea: ");
         System.out.println("-----------------------");
@@ -180,6 +201,10 @@ public class ejercicioCambio {
         System.out.println("-----------------------");
     }
 
+    /**
+     * Ejecuta un código u otro en función de un código de usuario recibido por parámetros
+     * @param codigo código de acción de ususario
+     */
     public static void cosechaInformacion(int codigo) {
         switch (codigo) {
             case 1:
